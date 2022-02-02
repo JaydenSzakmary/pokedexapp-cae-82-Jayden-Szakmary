@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+    {%block title%}
+    Pokemon Emulator
+    {%endblock%}
+
+
+    {%block content%}
+    <form action='{{url_for("pokedex")}}' method='POST'>
+        <div class="mb-3">
+          <label for="name" class="form-label">Pokemon</label>
+          <input type="text" name='name' class="form-control" id="name">
+          <div id="emailHelp" class="form-text">Enter the name of the pokemon you would like to see!</div>
+        </div>
+        <span style="color: red;"><small>{{ error }}</small></span>
+        <button type="submit" class="btn btn-primary">Show Me!</button>
+      </form>
+    {%endblock%}
+
+        {%block content2%}
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Abilities</th>
+            <th scope="col">Base XP</th>
+            <th scope="col">Sprite URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for data in pokemon%}
+          <tr>
+            <th scope="row">{{data.form_name}}</th>
+            <td>{{data.abilities}}</td>
+            <td>{{data.base_xp}}</td>
+            <td><img src="{{data.sprite_url}}" alt=""></td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+      {%endblock%}
