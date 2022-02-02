@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+
+    {%block title%}
+    Pokemon Emulator
+    {%endblock%}
+
+
+    
+
+
+
+    {% block content %}
+    <h1>Global Pokedex</h1>
+
+    <form action="{{url_for('pokedex')}}" method="POST">
+        {{form.hidden_tag()}}
+        <div>
+            {{form.name.label(class='form-label')}}
+            {{form.name(class='form-control')}}
+            {%for error in form.name.errors%}
+                <small style="color: red;">{{error}}</small>
+            {%endfor%}
+        </div>
+        <div>
+            {{form.submit(class='btn btn-primary form-control')}}
+        </div>
+        <small style="color: red;">{{error}}</small>
+    </form>
+    {%endblock%}
+
+
+
+        {%block content2%}
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Abilities</th>
+            <th scope="col">Base XP</th>
+            <th scope="col">Sprite URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for data in pokemon%}
+          <tr>
+            <th scope="row">{{data.form_name}}</th>
+            <td>{{data.abilities}}</td>
+            <td>{{data.base_xp}}</td>
+            <td><img src="{{data.sprite_url}}" alt=""></td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+      {%endblock%}
