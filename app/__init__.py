@@ -5,12 +5,32 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 
 
-app = Flask(__name__)
-app.config.from_object(Config)
 
-login = LoginManager(app)
+login = LoginManager()
 
-db = SQLAlchemy(app)
-migrate = Migrate(app,db)
+db = SQLAlchemy()
+migrate = Migrate()
 
-from app import routes, models
+
+def create_app(config_class=Config):
+    app = Flask(__name__)
+
+    app.config.from_object(config_class)
+
+    login.init_app(app)
+    db.init_app(app)
+    migrate.init_app(app, db)
+
+    login.login_view='auth.login'
+    login.login_message = 'Please register an account!'
+    login.login_message_category='warning'
+
+    from .blueprints.auth import bp as auth_bp
+    app.register_blueprint(auth_bp)
+
+    from .blueprints.main import bp as main_bp
+    app.register_blueprint(main_bp)
+
+
+    return app
+    

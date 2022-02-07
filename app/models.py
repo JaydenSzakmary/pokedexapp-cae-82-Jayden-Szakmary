@@ -1,4 +1,3 @@
-from flask import session
 from app import db, login
 from flask_login import UserMixin #for user moddel!
 from datetime import datetime as dt
