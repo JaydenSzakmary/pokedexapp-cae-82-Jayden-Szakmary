@@ -11,7 +11,7 @@
 
 
     {% block content %}
-    <h1>Global Pokedex</h1>
+    <h1>Local Pokedex. Welcome {{current_user.first_name}}!</h1>
 
     <form action="{{url_for('main.pokedex_add')}}" method="POST">
         {{form.hidden_tag()}}
@@ -50,6 +50,27 @@
             <td><img src="{{poke.sprite_url}}" alt=""></td>
           </tr>
           
+          <h1 class="userheading" >{{current_user.first_name}}'s Current Party!</h1>
+          {%for poke in current_user.mons%}
+          
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Abilities</th>
+                  <th scope="col">Base HP</th>
+                  <th scope="col">Sprite URL</th>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <th scope="row">{{poke.name.title()}}</th>
+                  <td>{{poke.abilities.title()}}</td>
+                  <td>{{poke.base_hp}}</td>
+                  <td><img src="{{poke.sprite_url}}" alt=""></td>
+                </tr>
+                {%endfor%}
         </tbody>
       </table>
       {%endblock%}

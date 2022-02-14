@@ -74,16 +74,16 @@ class User(UserMixin, db.Model):
         db.session.commit()  #save everything in the session to database
 
     def save_mons(self,poke):
-        self.mons.append(poke)
-        print(self.mons)
-        print('hello')
-        db.session.commit()
+        if poke in self.mons:
+            pass
+        else:
+            self.mons.append(poke)
+            db.session.commit()
 
     def remove_mons(self,poke):
-        self.mons.remove(poke)
-        print(self.mons)
-        print('hello')
-        db.session.commit()   
+        if poke in self.mons:
+            self.mons.remove(poke)
+            db.session.commit()   
 
     #select * from user where id = ??
 

@@ -2,8 +2,9 @@ from .import bp as main
 from flask import render_template, request, flash
 import requests
 from flask_login import  current_user, login_required
-from .forms import SearchForm
+from .forms import SearchForm, GameForm
 from app.models import Pokemon
+import random
 
 
 @main.route('/')
@@ -53,18 +54,14 @@ def pokedex_add():
     poke = []
     if request.method == 'POST' and form.validate_on_submit():
         poke = Pokemon.query.filter_by(name=form.name.data.lower()).first()
-        if poke:
-            
-            print(poke)
-            if len(list(current_user.mons))>=5:
-     
-                current_user.save_mons(poke)
-                flash('pokemon added to party successfully!','success')
+        if poke and len(list(current_user.mons))<5:
+            current_user.save_mons(poke)
+            flash('pokemon added to party successfully!','success')
 
             return render_template('pokedex_add.html', poke = poke, form=form)
         else:
             error_msg = f"Pokemon not found! is not registered in the global Pokedex!"
-            return render_template('pokedex_add.html',form=form, error = error_msg)
+            return render_template('pokedex_add.html',poke=poke,form=form, error = error_msg)
     return render_template('pokedex_add.html',poke= poke , form=form)
 
 
@@ -77,15 +74,20 @@ def pokedex_remove():
         
         poke = Pokemon.query.filter_by(name=form.name.data.lower()).first()
         if poke:
-            
-            
-     
             current_user.remove_mons(poke)
             flash('pokemon removed from party successfully!','success')
-
             return render_template('pokedex_remove.html', poke = poke, form=form)
         else:
             error_msg = f"Pokemon not found! is not registered in the global Pokedex!"
             return render_template('pokedex_remove.html',form=form, error = error_msg)
     return render_template('pokedex_remove.html',poke= poke , form=form)
+
+
+
+@main.route('/poke_battles', methods = ['GET','POST'])
+@login_required
+def poke_battles():
+    form = GameForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        pass
 

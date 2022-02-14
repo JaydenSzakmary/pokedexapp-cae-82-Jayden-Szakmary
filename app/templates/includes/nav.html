@@ -15,10 +15,16 @@
             <a class="nav-link active" aria-current="page" href="{{url_for('main.pokedex')}}">Pokedex</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{url_for('auth.logout')}}">Logout</a>
+            <a class="nav-link active" aria-current="page" href="{{url_for('auth.register')}}">Edit Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{url_for('auth.edit_profile')}}">Edit Profile</a>
+            <a class="nav-link active" aria-current="page" href="{{url_for('main.pokedex_add')}}">Add to Party</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{url_for('main.pokedex_remove')}}">Remove From Party</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{url_for('auth.logout')}}">Logout</a>
           </li>
           {%else%}
           <li class="nav-item">

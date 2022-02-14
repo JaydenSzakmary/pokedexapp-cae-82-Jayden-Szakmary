@@ -37,3 +37,5 @@ class EditProfileForm(FlaskForm):
         validators=[DataRequired(), EqualTo('password',
             message='Passwords must match')])
     submit = SubmitField('Update')
+
+

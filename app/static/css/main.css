@@ -1,3 +1,17 @@
 body{
-    background-color: darkgray;
+    background-color: #E8D7F1;
+}
+.nav-item:hover{
+    background-color: #D3BCCC;
+    border-radius: 25px
+}
+.textbubbles{
+    background-color: #4A306D; 
+    border-radius: 25px;
+    padding: 20px;
+    color: #A167A5;
+    width: 500px;
+}
+.headers{
+    color: #34045c;
 }
